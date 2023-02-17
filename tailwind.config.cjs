@@ -8,6 +8,11 @@ module.exports = {
       "paw-green-2": "#36b336",
       "paw-green-3": "#267d26",
       "br-grey": "#e8e6ea",
+      "input-grey": "#5e5e5e",
+      inactive: "#adafbb",
+      white: "#fff",
+      red: "#e02525",
+      black: "#000",
     },
     fontFamily: {
       "montserrat-regular": ["Montserrat Regualr", "sans-serif"],
