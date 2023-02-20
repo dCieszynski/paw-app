@@ -9,7 +9,7 @@ function PickRole() {
   return (
     <div className="flex flex-col items-center gap-36">
       <RolePicker activeRole={role} setActiveRole={setRole} />
-      <LoginSubmitButton title="Continue" submit={false} />
+      <LoginSubmitButton title="Continue" submit={false} link={`/create_profile/${role.toLowerCase()}`} />
     </div>
   );
 }

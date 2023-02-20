@@ -1,13 +1,20 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+
+import Layout from "./components/Layout";
+import CreateProfile from "./pages/CreateProfile";
 import Login from "./pages/Login";
+import PickRole from "./pages/PickRole";
 
 function App() {
   return (
-    <div className="w-full">
-      <div className="w-full min-h-screen p-10 border-2 border-black">
-        <Login />
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Login />} />
+        <Route path="create_profile" element={<PickRole />} />
+        <Route path="create_profile/:role" element={<CreateProfile />} />
+      </Route>
+    </Routes>
   );
 }
 

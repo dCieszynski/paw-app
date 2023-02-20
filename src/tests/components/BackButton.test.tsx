@@ -2,24 +2,24 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, expect } from "vitest";
 import { BrowserRouter } from "react-router-dom";
-import PickRole from "../../pages/PickRole";
+import BackButton from "../../components/BackButton";
 
-describe("test PickRole page", () => {
-  test("renders page", () => {
+describe("test BackButton", () => {
+  test("renders BackButton", () => {
     render(
       <BrowserRouter>
-        <PickRole />
+        <BackButton />
       </BrowserRouter>
     );
   });
 
-  test("renders buttons", () => {
+  test("renders button", () => {
     render(
       <BrowserRouter>
-        <PickRole />
+        <BackButton />
       </BrowserRouter>
     );
 
-    expect(screen.getAllByRole("button").length).toBe(3);
+    expect(screen.getByRole("button")).toBeTruthy();
   });
 });

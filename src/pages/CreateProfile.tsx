@@ -1,23 +1,49 @@
 import React, { useState } from "react";
 import { TiCamera } from "react-icons/ti";
-import { MdArrowBackIosNew } from "react-icons/md";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate, useParams } from "react-router-dom";
 
 import defaultImgUrl from "../assets/avatar.svg";
-import { TKeeperFormValues } from "../types/login";
+import { TProfileFormValues } from "../types/login";
 import LoginSubmitButton from "../components/LoginSubmitButton";
 import InputField from "../components/InputField";
+import BackButton from "../components/BackButton";
+
+const keeperInputs = [
+  { name: "firstName", title: "First name" },
+  { name: "lastName", title: "Last name" },
+];
+
+const animalShelterInputs = [
+  { name: "name", title: "Name" },
+  { name: "city", title: "City" },
+  { name: "address", title: "Address" },
+];
+
+const keeperSchema = Yup.object({
+  avatar: Yup.mixed().required("Avatar is required"),
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
+});
+
+const animalShelterSchema = Yup.object({
+  avatar: Yup.mixed().required("Avatar is required"),
+  name: Yup.string().required("Name is required"),
+  city: Yup.string().required("City is required"),
+  address: Yup.string().required("Address is required"),
+});
 
 function CreateProfile() {
+  const { role } = useParams();
   const [avatarUrl, setAvatarUrl] = useState(defaultImgUrl);
-  const initialValues: TKeeperFormValues = { avatar: undefined, firstName: "", lastName: "" };
 
-  const profileSchema = Yup.object({
-    avatar: Yup.mixed().required("Avatar is required"),
-    firstName: Yup.string().required("First name is required"),
-    lastName: Yup.string().required("Last name is required"),
-  });
+  const initialValues: TProfileFormValues =
+    role === "keeper" ? { avatar: undefined, firstName: "", lastName: "" } : { avatar: undefined, name: "", city: "", address: "" };
+
+  const profileSchema = role === "keeper" ? keeperSchema : animalShelterSchema;
+
+  const inputs = role === "keeper" ? keeperInputs : animalShelterInputs;
 
   const formik = useFormik({
     initialValues,
@@ -29,12 +55,7 @@ function CreateProfile() {
 
   return (
     <div className="flex flex-col gap-8">
-      <button
-        type="button"
-        className="w-[52px] h-[52px] border-[1px] border-br-grey text-paw-green-2 text-2xl rounded-2xl flex justify-center items-center"
-      >
-        <MdArrowBackIosNew />
-      </button>
+      <BackButton />
       <form className="flex flex-col items-center gap-14" onSubmit={formik.handleSubmit}>
         <h1 className="self-start font-montserrat-bold text-[34px]">Profile details</h1>
         <div className="flex flex-col items-center gap-8">
@@ -63,14 +84,14 @@ function CreateProfile() {
           </div>
 
           <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-2">
-              {formik.touched.firstName && formik.errors.firstName && <span className="text-red">{formik.errors.firstName}</span>}
-              <InputField name="firstName" title="First name" handleChange={formik.handleChange} />
-            </div>
-            <div className="flex flex-col gap-2">
-              {formik.touched.lastName && formik.errors.lastName && <span className="text-red">{formik.errors.lastName}</span>}
-              <InputField name="lastName" title="Last name" handleChange={formik.handleChange} />
-            </div>
+            {inputs.map((input) => (
+              <div key={input.name} className="flex flex-col gap-2">
+                {formik.touched[input.name as keyof TProfileFormValues] && formik.errors[input.name as keyof TProfileFormValues] && (
+                  <span className="text-red">{formik.errors.firstName}</span>
+                )}
+                <InputField name={input.name} title={input.title} handleChange={formik.handleChange} />
+              </div>
+            ))}
           </div>
         </div>
         <LoginSubmitButton title="Confirm" submit />
