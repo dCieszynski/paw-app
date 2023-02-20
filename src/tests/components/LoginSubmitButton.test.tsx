@@ -40,7 +40,6 @@ describe("test LoginSubmitButton", () => {
       </BrowserRouter>
     );
 
-    screen.debug();
     expect(screen.getByRole("link")).toBeTruthy();
   });
 });
