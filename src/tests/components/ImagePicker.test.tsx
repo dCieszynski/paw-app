@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, expect, vi } from "vitest";
+import { describe, expect, vi, test } from "vitest";
 import userEvent from "@testing-library/user-event";
 import ImagePicker from "../../components/ImagePicker";
 import defaultImgUrl from "../assets/avatar.svg";

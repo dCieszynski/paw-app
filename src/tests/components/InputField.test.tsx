@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, vi } from "vitest";
+import { describe, expect, vi, test } from "vitest";
 import InputField from "../../components/InputField";
 
 describe("test InputField", () => {

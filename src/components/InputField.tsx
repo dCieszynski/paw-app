@@ -12,7 +12,7 @@ function InputField({ name, title, handleChange }: Props) {
       <label htmlFor={name} className="absolute top-[-12px] left-5 text-input-grey bg-white pl-2 text-xs">
         {title}
       </label>
-      <input type="text" name={name} className="px-4 w-full text-sm ring-0 outline-none" onChange={handleChange} />
+      <input id={name} type="text" name={name} className="px-4 w-full text-sm ring-0 outline-none" onChange={handleChange} />
     </div>
   );
 }

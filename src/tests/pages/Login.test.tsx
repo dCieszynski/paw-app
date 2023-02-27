@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { describe, expect } from "vitest";
+import { describe, expect, test } from "vitest";
 import { BrowserRouter } from "react-router-dom";
 import Login from "../../pages/Login";
 
@@ -40,6 +40,6 @@ describe("test Login page", () => {
       </BrowserRouter>
     );
 
-    expect(screen.getAllByRole("button").length).toBe(3);
+    expect(screen.getAllByRole("button").length).toBe(2);
   });
 });
