@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { describe, expect } from "vitest";
+import { describe, expect, test } from "vitest";
 import { BrowserRouter } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 

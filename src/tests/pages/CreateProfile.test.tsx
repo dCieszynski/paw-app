@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, act, waitFor } from "@testing-library/react";
-import { describe, expect } from "vitest";
+import { describe, expect, test } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import CreateProfile from "../../pages/CreateProfile";
