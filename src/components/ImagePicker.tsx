@@ -16,7 +16,7 @@ function ImagePicker({ imgUrl, altText, handleChange }: Props) {
           <TiCamera />
           <input
             type="file"
-            accept="image/"
+            accept="image/jpg, image/png"
             name="avatar"
             id="avatar"
             className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]  w-[34px] h-[34px] cursor-pointer file:invisible"
