@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import defaultImgUrl from "../assets/avatar.svg";
 import { TProfileFormValues } from "../types/login";
@@ -9,6 +9,8 @@ import LoginSubmitButton from "../components/LoginSubmitButton";
 import InputField from "../components/InputField";
 import BackButton from "../components/BackButton";
 import ImagePicker from "../components/ImagePicker";
+import supabase from "../supabase";
+import useAuth from "../utils/useAuth";
 
 const keeperInputs = [
   { name: "firstName", title: "First name" },
@@ -36,7 +38,10 @@ const animalShelterSchema = Yup.object({
 
 function CreateProfile() {
   const { role } = useParams();
+  const { auth } = useAuth();
+  const [avatarFile, setAvatarFile] = useState<File | undefined>(undefined);
   const [avatarUrl, setAvatarUrl] = useState(defaultImgUrl);
+  const navigate = useNavigate();
 
   const initialValues: TProfileFormValues =
     role === "keeper" ? { avatar: undefined, firstName: "", lastName: "" } : { avatar: undefined, name: "", city: "", address: "" };
@@ -48,8 +53,30 @@ function CreateProfile() {
   const formik = useFormik({
     initialValues,
     validationSchema: profileSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      if (role === "keeper") {
+        await supabase.storage.from("avatars").upload(`${auth?.id}/avatar-${auth?.id}`, avatarFile as File);
+        await supabase.from("keepers").insert([
+          {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            avatarImageSrc: `https://ptsiwtpctamyuwnfigwp.supabase.co/storage/v1/object/public/avatars/${auth?.id}/avatar-${auth?.id}`,
+            user_id: auth?.id,
+          },
+        ]);
+      } else {
+        await supabase.storage.from("avatars").upload(`${auth?.id}/avatar-${auth?.id}`, avatarFile as File);
+        await supabase.from("shelters").insert([
+          {
+            name: values.name,
+            city: values.city,
+            address: values.address,
+            avatarImageSrc: `https://ptsiwtpctamyuwnfigwp.supabase.co/storage/v1/object/public/avatars/${auth?.id}/avatar-${auth?.id}`,
+            user_id: auth?.id,
+          },
+        ]);
+      }
+      navigate("/discover");
     },
   });
 
@@ -59,6 +86,7 @@ function CreateProfile() {
         const file = e.currentTarget.files[0];
         if (file instanceof File) {
           formik.setFieldValue("avatar", file);
+          setAvatarFile(file);
           setAvatarUrl(URL.createObjectURL(file));
         }
       }
