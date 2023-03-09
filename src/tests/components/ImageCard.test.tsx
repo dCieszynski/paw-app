@@ -6,11 +6,11 @@ import ImageCard from "../../components/ImageCard";
 
 describe("test ImageCard", () => {
   test("renders ImageCard", () => {
-    render(<ImageCard />);
+    render(<ImageCard size="large" />);
   });
 
   test("renders header", () => {
-    render(<ImageCard />);
+    render(<ImageCard size="small" />);
 
     expect(screen.getByText("Rolf, 2")).toBeTruthy();
   });

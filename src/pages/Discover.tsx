@@ -1,6 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IoClose, IoStar } from "react-icons/io5";
+import { AiFillHeart } from "react-icons/ai";
+import { BsFillChatTextFill, BsFillPersonFill } from "react-icons/bs";
+import { TbLayoutCards } from "react-icons/tb";
 
 import BackButton from "../components/BackButton";
 import supabase from "../supabase";
@@ -10,6 +13,25 @@ import ImageCard from "../components/ImageCard";
 import CircleButton from "../components/CircleButton";
 import PawButton from "../components/PawButton";
 import Navbar from "../components/Navbar";
+
+const links = [
+  {
+    to: "/discover",
+    Icon: TbLayoutCards,
+  },
+  {
+    to: "/likes",
+    Icon: AiFillHeart,
+  },
+  {
+    to: "/messages",
+    Icon: BsFillChatTextFill,
+  },
+  {
+    to: "/profile",
+    Icon: BsFillPersonFill,
+  },
+];
 
 function Discover() {
   const { logout } = useAuth();
@@ -32,7 +54,7 @@ function Discover() {
         <Button />
       </div>
       <div className="flex flex-col gap-5 justify-center">
-        <ImageCard />
+        <ImageCard size="large" />
         <div className="flex gap-10 justify-center items-center w-[300px] pb-12">
           <CircleButton Icon={IoClose} color="text-paw-orange-0" textSize="text-2xl" handleClick={() => {}} />
           <PawButton handleClick={() => {}} />
@@ -40,7 +62,7 @@ function Discover() {
         </div>
       </div>
 
-      <Navbar />
+      <Navbar links={links} />
     </div>
   );
 }
