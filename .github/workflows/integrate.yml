@@ -7,6 +7,8 @@ on:
 jobs:
   test_pull_request:
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_SUPABASE_KEY: ${{ vars.REACT_APP_SUPABASE_KEY }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
