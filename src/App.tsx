@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Layout from "./components/Layout";
+import AddPet from "./pages/AddPet";
 import CreateProfile from "./pages/CreateProfile";
 import Discover from "./pages/Discover";
 import Login from "./pages/Login";
@@ -19,6 +20,7 @@ function App() {
         <Route path="/create_profile/:role" element={<CreateProfile />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/animal_shelter" element={<ShelterMain />} />
+        <Route path="/add_pet" element={<AddPet />} />
       </Route>
     </Routes>
   );

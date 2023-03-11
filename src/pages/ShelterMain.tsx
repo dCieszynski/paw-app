@@ -10,7 +10,7 @@ import supabase from "../supabase";
 import useAuth from "../utils/useAuth";
 import ImageCard from "../components/ImageCard";
 
-const links = [
+export const links = [
   {
     to: "/animal_shelter",
     Icon: MdDomain,
@@ -52,7 +52,7 @@ function ShelterMain() {
       <div className="w-[300px] flex flex-col gap-6">
         <div>
           <h2 className="font-montserrat-bold text-xl">Animals</h2>
-          <p>This is a list of animals that are available in your animal shelter</p>
+          <p className="font-montserrat-regular text-input-grey">This is a list of animals that are available in your animal shelter</p>
         </div>
         <div className="flex flex-wrap gap-4 pb-10">
           <ImageCard size="small" />
