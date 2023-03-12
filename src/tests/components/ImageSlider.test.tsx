@@ -6,11 +6,11 @@ import ImageSlider from "../../components/ImageSlider";
 
 describe("test ImageSlider", () => {
   test("renders ImageSlider", () => {
-    render(<ImageSlider />);
+    render(<ImageSlider images={["1", "2"]} />);
   });
 
   test("renders image", () => {
-    render(<ImageSlider />);
+    render(<ImageSlider images={["1", "2"]} />);
 
     waitFor(async () => {
       expect(screen.getByRole("img")).toBeTruthy();

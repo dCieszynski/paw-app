@@ -1,23 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
-import dog1 from "../assets/dog.png";
-import dog2 from "../assets/dog2.jpg";
-import dog3 from "../assets/dog3.jpg";
+import Loader from "./Loader";
 
-const images = [
-  {
-    url: dog1,
-  },
-  {
-    url: dog2,
-  },
-  {
-    url: dog3,
-  },
-];
+type Props = {
+  images: string[];
+};
 
-function ImageSlider() {
+function ImageSlider({ images }: Props) {
   const [currentImage, setCurrentImage] = React.useState(0);
+  const [loadedImages, setLoadedImages] = React.useState<number[]>([]);
 
   const goToNextImage = () => {
     if (currentImage === images.length - 1) {
@@ -35,15 +26,28 @@ function ImageSlider() {
     }
   };
 
+  const handleImageLoad = (index: number) => {
+    setLoadedImages((prevLoadedImages) => [...prevLoadedImages, index]);
+  };
+
+  useEffect(() => {
+    setLoadedImages([]);
+  }, [images]);
+
   return (
     <div className="rounded w-full h-full group">
       {images.map((image, index) => (
-        <img
-          key={image.url}
-          className={`absolute w-full h-full transition-opacity ${index === currentImage ? "opacity-100" : "opacity-0"} duration-500 ease-in-out`}
-          src={image.url}
-          alt="Dog"
-        />
+        <div key={image}>
+          {!loadedImages.includes(index) && <Loader />}
+          <img
+            className={`${loadedImages.includes(index) ? "opacity-100" : "opacity-0"} absolute w-full h-full transition-opacity ${
+              index === currentImage ? "opacity-100" : "opacity-0"
+            } duration-500 ease-in-out`}
+            src={image}
+            onLoad={() => handleImageLoad(index)}
+            alt="Dog"
+          />
+        </div>
       ))}
       {/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
       <div className="hidden group-hover:block absolute top-1/2 translate-y-[-50%] text-4xl cursor-pointer" onClick={goToNextImage}>
