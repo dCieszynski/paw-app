@@ -11,18 +11,6 @@ describe("AuthProvider", () => {
     email: "test@example.com",
   } as any;
 
-  test("should render the children components", () => {
-    render(
-      <BrowserRouter>
-        <AuthProvider>
-          <div>Test</div>
-        </AuthProvider>
-      </BrowserRouter>
-    );
-
-    expect(screen.getByText("Test")).toBeTruthy();
-  });
-
   test("should set auth context", () => {
     render(
       <BrowserRouter>

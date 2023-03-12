@@ -8,3 +8,16 @@ export type TProfileFormValues = {
   city?: string;
   address?: string;
 };
+
+export type TUserProfile = {
+  id: number;
+  createdAt: string;
+  firstName?: string;
+  lastName?: string;
+  avatarImageSrc: string;
+  user_id: number;
+  name?: string;
+  city?: string;
+  address?: string;
+  role: string;
+};

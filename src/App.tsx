@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
 import AddPet from "./pages/AddPet";
 import CreateProfile from "./pages/CreateProfile";
 import Discover from "./pages/Discover";
@@ -18,9 +19,13 @@ function App() {
         <Route path="/sign_via_otp" element={<OTPSignin />} />
         <Route path="/create_profile" element={<PickRole />} />
         <Route path="/create_profile/:role" element={<CreateProfile />} />
-        <Route path="/discover" element={<Discover />} />
-        <Route path="/animal_shelter" element={<ShelterMain />} />
-        <Route path="/add_pet" element={<AddPet />} />
+        <Route element={<ProtectedRoute allowedRole="animal_shelter" />}>
+          <Route path="/animal_shelter" element={<ShelterMain />} />
+          <Route path="/add_pet" element={<AddPet />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedRole="keeper" />}>
+          <Route path="/discover" element={<Discover />} />
+        </Route>
       </Route>
     </Routes>
   );

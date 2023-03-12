@@ -10,7 +10,7 @@ import useAuth from "../utils/useAuth";
 
 function PickRole() {
   const [role, setRole] = useState<TRole>("Animal shelter");
-  const { auth, logout } = useAuth();
+  const { auth, profile, logout } = useAuth();
   const navigate = useNavigate();
 
   const signout = async () => {
@@ -20,12 +20,13 @@ function PickRole() {
   };
 
   const getProfile = useCallback(async () => {
-    const { data: shelter } = await supabase.from("shelters").select("*").eq("user_id", auth?.id);
-    const { data: keeper } = await supabase.from("keepers").select("*").eq("user_id", auth?.id);
-    if (shelter?.length || keeper?.length) {
+    if (!auth || !profile) return;
+    if (profile.role === "animal_shelter") {
+      navigate("/animal_shelter");
+    } else if (profile.role === "keeper") {
       navigate("/discover");
     }
-  }, [auth, navigate]);
+  }, [auth, profile, navigate]);
 
   useEffect(() => {
     getProfile();

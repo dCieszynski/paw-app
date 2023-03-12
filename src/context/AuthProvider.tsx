@@ -1,22 +1,29 @@
-import React, { createContext, PropsWithChildren, useEffect, useMemo, useState } from "react";
+import React, { createContext, PropsWithChildren, useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "@supabase/supabase-js";
 import supabase from "../supabase";
+import { TUserProfile } from "../types/login";
+import Loader from "../components/Loader";
 
 export type TAuthContext = {
   auth: User | null;
+  profile: TUserProfile | null;
   login: (user: User) => void;
   logout: () => void;
 };
 
 const AuthContext = createContext<TAuthContext>({
   auth: null,
+  profile: null,
   login: () => {},
   logout: () => {},
 });
 
 export function AuthProvider({ children }: PropsWithChildren) {
   const [auth, setAuth] = useState<User | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(false);
+  const [isProfileLoading, setIsProfileLoading] = useState(false);
+  const [profile, setProfile] = useState<TUserProfile | null>(null);
   const navigate = useNavigate();
 
   const login = (user: User) => {
@@ -30,28 +37,53 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const authValue: TAuthContext = useMemo(
     () => ({
       auth,
+      profile,
       login,
       logout,
     }),
-    [auth]
+    [auth, profile]
   );
 
-  const checkUser = async () => {
+  const checkUser = useCallback(async () => {
     const { data } = await supabase.auth.getSession();
     if (data.session?.user) {
       login(data.session.user);
     } else {
       logout();
+      setProfile(null);
       navigate("/");
     }
-  };
+    setIsAuthLoading(false);
+  }, [navigate]);
+
+  const checkProfile = useCallback(async () => {
+    if (!auth) {
+      setIsProfileLoading(false);
+      return;
+    }
+    const { data: shelterData } = await supabase.from("shelters").select("*").eq("user_id", auth.id);
+    if (shelterData && shelterData.length > 0) {
+      setProfile(shelterData[0]);
+    } else {
+      const { data: keeperData } = await supabase.from("keepers").select("*").eq("user_id", auth.id);
+      if (keeperData && keeperData.length > 0) {
+        setProfile(keeperData[0]);
+      }
+    }
+    setIsProfileLoading(false);
+  }, [auth]);
 
   useEffect(() => {
+    setIsAuthLoading(true);
     checkUser();
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, []);
+  }, [checkUser]);
 
-  return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
+  useEffect(() => {
+    setIsProfileLoading(true);
+    checkProfile();
+  }, [checkProfile]);
+
+  return <div>{isAuthLoading || isProfileLoading ? <Loader /> : <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>}</div>;
 }
 
 export default AuthContext;
