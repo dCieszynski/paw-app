@@ -64,6 +64,7 @@ function CreateProfile() {
             user_id: auth?.id,
           },
         ]);
+        navigate("/discover");
       } else {
         await supabase.storage.from("avatars").upload(`${auth?.id}/avatar-${auth?.id}`, avatarFile as File);
         await supabase.from("shelters").insert([
@@ -75,8 +76,8 @@ function CreateProfile() {
             user_id: auth?.id,
           },
         ]);
+        navigate("/animal_shelter");
       }
-      navigate("/discover");
     },
   });
 
