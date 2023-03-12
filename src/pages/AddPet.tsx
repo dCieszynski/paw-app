@@ -68,7 +68,7 @@ function AddPet() {
     validationSchema: addPetSchema,
     onSubmit: async (values) => {
       imagesFiles.forEach(async (file, index) => {
-        await supabase.storage.from("animals").upload(`${auth?.id}/${values.name}_${index}`, file);
+        await supabase.storage.from("animals").upload(`${auth?.id}/${values.name}_${values.age}_${index}`, file);
       });
 
       const { data } = await supabase.from("shelters").select("id").eq("user_id", auth?.id);
@@ -81,11 +81,13 @@ function AddPet() {
           description: values.description,
           shelter_id: data?.[0].id,
           images: imagesFiles.map(
-            (_, index) => `https://ptsiwtpctamyuwnfigwp.supabase.co/storage/v1/object/public/animals/${auth?.id}/${values.name}_${index}`
+            (_, index) =>
+              `https://ptsiwtpctamyuwnfigwp.supabase.co/storage/v1/object/public/animals/${auth?.id}/${values.name}_${values.age}_${index}`
           ),
+          user_id: auth?.id,
         },
       ]);
-      navigate("/shelter-main");
+      navigate("/animal_shelter");
     },
   });
 

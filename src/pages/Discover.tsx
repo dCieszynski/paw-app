@@ -54,7 +54,7 @@ function Discover() {
         <Button />
       </div>
       <div className="flex flex-col gap-5 justify-center">
-        <ImageCard size="large" />
+        {/* <ImageCard size="large"/> */}
         <div className="flex gap-10 justify-center items-center w-[300px] pb-12">
           <CircleButton Icon={IoClose} color="text-paw-orange-0" textSize="text-2xl" handleClick={() => {}} />
           <PawButton handleClick={() => {}} />
