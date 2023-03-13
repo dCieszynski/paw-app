@@ -9,17 +9,18 @@ type Props = {
   title: string;
   description?: string;
   id: number;
-  handleDelete: (id: number, search: string) => void;
+  handleDelete?: (id: number, search: string) => void;
 };
 
 const defaultProps = {
   description: "",
+  handleDelete: undefined,
 };
 
 function ImageCard({ size, images, title, description, handleDelete, id }: Props) {
   return (
     <div>
-      {size === "small" ? (
+      {size === "small" && handleDelete ? (
         <div className="relative w-[140px] h-[200px] group">
           {images && <ImageSlider images={images} />}
           <div className="bg-black bg-opacity-90 blur-[2px] w-[140px] rounded-lg h-10 absolute bottom-0" />

@@ -62,6 +62,7 @@ function CreateProfile() {
             lastName: values.lastName,
             avatarImageSrc: `https://ptsiwtpctamyuwnfigwp.supabase.co/storage/v1/object/public/avatars/${auth?.id}/avatar-${auth?.id}`,
             user_id: auth?.id,
+            role,
           },
         ]);
         navigate("/discover");
@@ -74,6 +75,7 @@ function CreateProfile() {
             address: values.address,
             avatarImageSrc: `https://ptsiwtpctamyuwnfigwp.supabase.co/storage/v1/object/public/avatars/${auth?.id}/avatar-${auth?.id}`,
             user_id: auth?.id,
+            role,
           },
         ]);
         navigate("/animal_shelter");
