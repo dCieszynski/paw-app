@@ -9,7 +9,7 @@ type Props = {
   title: string;
   description?: string;
   id: number;
-  handleDelete?: (id: number, search: string) => void;
+  handleDelete?: (id?: number | string, search?: string) => void;
 };
 
 const defaultProps = {

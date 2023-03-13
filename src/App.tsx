@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import OTPSignin from "./pages/OTPSignin";
 import PickRole from "./pages/PickRole";
 import ShelterMain from "./pages/ShelterMain";
+import Likes from "./pages/Likes";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         </Route>
         <Route element={<ProtectedRoute allowedRole="keeper" />}>
           <Route path="/discover" element={<Discover />} />
+          <Route path="/likes" element={<Likes />} />
         </Route>
       </Route>
     </Routes>

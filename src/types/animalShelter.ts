@@ -16,4 +16,6 @@ export type TAnimal = {
   images: string[];
   createdAt: string;
   user_id: string;
+  like_id?: string;
+  status?: string;
 };

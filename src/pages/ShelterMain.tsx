@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MdDomain, MdPets } from "react-icons/md";
-import { BsFillChatTextFill, BsFillPersonFill } from "react-icons/bs";
 
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
@@ -11,25 +9,7 @@ import useAuth from "../utils/useAuth";
 import ImageCard from "../components/ImageCard";
 import { TAnimal } from "../types/animalShelter";
 import Loader from "../components/Loader";
-
-export const links = [
-  {
-    to: "/animal_shelter",
-    Icon: MdDomain,
-  },
-  {
-    to: "/add_pet",
-    Icon: MdPets,
-  },
-  {
-    to: "/messages",
-    Icon: BsFillChatTextFill,
-  },
-  {
-    to: "/profile",
-    Icon: BsFillPersonFill,
-  },
-];
+import { shelterLinks as links } from "../utils/navbarLinks";
 
 function ShelterMain() {
   const [animals, setAnimals] = useState<TAnimal[]>([]);
@@ -56,7 +36,7 @@ function ShelterMain() {
     setIsLoading(false);
   }, [profile]);
 
-  const handleRemove = async (id: number, search: string) => {
+  const handleRemove = async (id?: number | string, search?: string) => {
     await supabase.from("animals").delete().eq("id", id);
     const { data } = await supabase.storage.from("animals").list(auth?.id, { search });
     data?.forEach(async (file) => {
