@@ -1,9 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoClose, IoStar } from "react-icons/io5";
-import { AiFillHeart } from "react-icons/ai";
-import { BsFillChatTextFill, BsFillPersonFill } from "react-icons/bs";
-import { TbLayoutCards } from "react-icons/tb";
 
 import BackButton from "../components/BackButton";
 import supabase from "../supabase";
@@ -15,25 +12,7 @@ import PawButton from "../components/PawButton";
 import Navbar from "../components/Navbar";
 import { TAnimal } from "../types/animalShelter";
 import { getDate } from "../utils/helpers";
-
-const links = [
-  {
-    to: "/discover",
-    Icon: TbLayoutCards,
-  },
-  {
-    to: "/likes",
-    Icon: AiFillHeart,
-  },
-  {
-    to: "/messages",
-    Icon: BsFillChatTextFill,
-  },
-  {
-    to: "/profile",
-    Icon: BsFillPersonFill,
-  },
-];
+import { keeperLinks as links } from "../utils/navbarLinks";
 
 function Discover() {
   const [animalsCount, setAnimalsCount] = useState(0);
@@ -89,7 +68,7 @@ function Discover() {
       setAnimalsCount(0);
     } else {
       setCurrentIndex(currentIndex + 1);
-      await supabase.from("likes").insert([{ animal_id: animals[currentIndex].id, keeper_id: profile?.id }]);
+      await supabase.from("likes").insert([{ animal_id: animals[currentIndex].id, keeper_id: profile?.id, status: "Pending" }]);
     }
   };
 

@@ -32,6 +32,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   const logout = () => {
     setAuth(null);
+    setProfile(null);
   };
 
   const authValue: TAuthContext = useMemo(
@@ -50,7 +51,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
       login(data.session.user);
     } else {
       logout();
-      setProfile(null);
       navigate("/");
     }
     setIsAuthLoading(false);

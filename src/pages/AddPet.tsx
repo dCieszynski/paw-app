@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import BackButton from "../components/BackButton";
 import InputField from "../components/InputField";
 import Navbar from "../components/Navbar";
-import { links } from "./ShelterMain";
+import { shelterLinks as links } from "../utils/navbarLinks";
 import LoginSubmitButton from "../components/LoginSubmitButton";
 import AddImage from "../components/AddImage";
 import ImagePreview from "../components/ImagePreview";
