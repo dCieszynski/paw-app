@@ -3,6 +3,7 @@ export type TAddPetFormValues = {
   age: string;
   breed: string;
   description: string;
+  species: string;
   image: File | undefined;
 };
 
@@ -12,6 +13,7 @@ export type TAnimal = {
   name: string;
   age: string;
   breed: string;
+  species: string;
   description: string;
   images: string[];
   createdAt: string;

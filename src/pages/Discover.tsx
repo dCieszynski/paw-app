@@ -13,13 +13,23 @@ import Navbar from "../components/Navbar";
 import { TAnimal } from "../types/animalShelter";
 import { getDate } from "../utils/helpers";
 import { keeperLinks as links } from "../utils/navbarLinks";
+import FiltersModal from "../components/FiltersModal";
+import { TFilter } from "../types/keeper";
+
+const initialFilters: TFilter = {
+  minAge: 0,
+  maxAge: 30,
+  species: "All",
+  city: null,
+};
 
 function Discover() {
   const [animalsCount, setAnimalsCount] = useState(0);
   const [animals, setAnimals] = useState<TAnimal[]>([]);
   const [isReset, setIsReset] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("No more animals found");
+  const [displayFilters, setDisplayFilters] = useState(false);
   const { profile, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -72,6 +82,40 @@ function Discover() {
     }
   };
 
+  const displayFiltersModal = () => {
+    setDisplayFilters(!displayFilters);
+  };
+
+  const handleFiltersSubmit = async (filters?: TFilter) => {
+    setDisplayFilters(false);
+    if (!filters) {
+      getAllAnimals();
+      return;
+    }
+    if (filters.city !== null) {
+      const { data: shelters } = await supabase.from("shelters").select("*").textSearch("city", filters.city);
+      const shelterIds = shelters?.map((shelter) => shelter.id);
+      const { data } = await supabase.rpc("getanimalswithoutrelationwithfilters", {
+        keeper_id: profile?.id,
+        min_age: filters.minAge,
+        max_age: filters.maxAge,
+        species: filters.species === "All" ? null : filters.species,
+        shelters: shelterIds,
+      });
+      setAnimals(data);
+      setAnimalsCount(data.length);
+    } else {
+      const { data } = await supabase.rpc("getanimalswithoutrelationwithfilters", {
+        keeper_id: profile?.id,
+        min_age: filters.minAge,
+        max_age: filters.maxAge,
+        species: filters.species === "All" ? null : filters.species,
+      });
+      setAnimals(data);
+      setAnimalsCount(data.length);
+    }
+  };
+
   useEffect(() => {
     resetNotInterested();
   }, [resetNotInterested]);
@@ -88,9 +132,9 @@ function Discover() {
         <BackButton handleClick={signout} />
         <div className="flex flex-col items-center">
           <h1 className="font-montserrat-bold text-2xl">Discover</h1>
-          <p className="font-montserrat-regular text-xs text-input-grey">All</p>
+          <p className="font-montserrat-regular text-xs text-input-grey">Here you can look for pets that you would adopt</p>
         </div>
-        <Button />
+        <Button handleClick={displayFiltersModal} />
       </div>
       <div className="flex flex-col gap-5 justify-center">
         {animalsCount === 0 && <p className="font-montserrat-regular text-xl text-input-grey">{errorMessage}</p>}
@@ -111,7 +155,12 @@ function Discover() {
           </>
         )}
       </div>
-
+      <FiltersModal
+        initialFilters={initialFilters}
+        display={displayFilters}
+        handleCloseFilterModal={displayFiltersModal}
+        handleSubmit={handleFiltersSubmit}
+      />
       <Navbar links={links} />
     </div>
   );

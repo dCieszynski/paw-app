@@ -1,5 +1,5 @@
 import React, { createContext, PropsWithChildren, useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { User } from "@supabase/supabase-js";
 import supabase from "../supabase";
 import { TUserProfile } from "../types/login";
@@ -25,6 +25,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const [isProfileLoading, setIsProfileLoading] = useState(false);
   const [profile, setProfile] = useState<TUserProfile | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const login = (user: User) => {
     setAuth(user);
@@ -47,6 +48,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   const checkUser = useCallback(async () => {
     const { data } = await supabase.auth.getSession();
+    if (location.pathname === "/sign_via_otp") {
+      setIsProfileLoading(false);
+      setIsAuthLoading(false);
+      return;
+    }
     if (data.session?.user) {
       login(data.session.user);
     } else {
@@ -54,7 +60,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       navigate("/");
     }
     setIsAuthLoading(false);
-  }, [navigate]);
+  }, [navigate, location.pathname]);
 
   const checkProfile = useCallback(async () => {
     if (!auth) {
