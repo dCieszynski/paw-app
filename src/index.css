@@ -16,3 +16,19 @@
     src: url("/fonts/Montserrat-ExtraBold.ttf");
   }
 }
+
+input[type="range"]::-webkit-slider-thumb {
+  pointer-events: auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  background-color: #36b336;
+  border: 4px solid #fff;
+}
+
+select {
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right;
+  -webkit-appearance: none;
+  background-position-x: 250px;
+}

@@ -32,7 +32,7 @@ function OTPSignin() {
         </div>
       </div>
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-        <InputField name="email" title="Email" handleChange={(e) => setEmailInput(e.currentTarget.value)} />
+        <InputField name="email" title="Email" value={emailInput} handleChange={(e) => setEmailInput(e.currentTarget.value)} />
         <LoginSubmitButton title="Send OTP link" submit />
       </form>
     </div>

@@ -33,10 +33,13 @@ const inputs = [
   },
 ];
 
+const species = ["Dog", "Cat", "Other"];
+
 const initialValues: TAddPetFormValues = {
   name: "",
   breed: "",
   age: "",
+  species: "Dog",
   description: "",
   image: undefined,
 };
@@ -80,6 +83,7 @@ function AddPet() {
           age: values.age,
           description: values.description,
           shelter_id: data?.[0].id,
+          species: values.species,
           images: imagesFiles.map(
             (_, index) =>
               `https://ptsiwtpctamyuwnfigwp.supabase.co/storage/v1/object/public/animals/${auth?.id}/${values.name}_${values.age}_${index}`
@@ -142,6 +146,14 @@ function AddPet() {
               <InputField name={input.name} title={input.title} handleChange={formik.handleChange} />
             </div>
           ))}
+          <InputField
+            name="species"
+            title="Species"
+            value={formik.values.species}
+            handleChange={formik.handleChange}
+            type="select"
+            options={species}
+          />
           <div className="flex flex-wrap gap-2 justify-center">
             {formik.touched.image && formik.errors.image && <span className="text-red">{formik.errors.image}</span>}
             <AddImage handleChange={handleImageInput} />
