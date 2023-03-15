@@ -3,4 +3,5 @@ export type TFilter = {
   maxAge: number;
   species: string | null;
   city: string | null;
+  name?: string;
 };

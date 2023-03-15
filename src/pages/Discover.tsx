@@ -20,7 +20,7 @@ const initialFilters: TFilter = {
   minAge: 0,
   maxAge: 30,
   species: "All",
-  city: null,
+  city: "",
 };
 
 function Discover() {
@@ -132,7 +132,7 @@ function Discover() {
         <BackButton handleClick={signout} />
         <div className="flex flex-col items-center">
           <h1 className="font-montserrat-bold text-2xl">Discover</h1>
-          <p className="font-montserrat-regular text-xs text-input-grey">Here you can look for pets that you would adopt</p>
+          <p className="font-montserrat-regular text-xs text-input-grey">Here you can look for pets that you would like to adopt</p>
         </div>
         <Button handleClick={displayFiltersModal} />
       </div>
