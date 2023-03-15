@@ -8,10 +8,21 @@ import { TAnimal } from "../types/animalShelter";
 import supabase from "../supabase";
 import useAuth from "../utils/useAuth";
 import ImageCard from "../components/ImageCard";
+import FiltersModal from "../components/FiltersModal";
+import { TFilter } from "../types/keeper";
+
+const initialFilters: TFilter = {
+  minAge: 0,
+  maxAge: 30,
+  species: "All",
+  city: null,
+  name: "",
+};
 
 function Likes() {
   const [animals, setAnimals] = useState<TAnimal[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [displayFilters, setDisplayFilters] = useState(false);
   const { profile } = useAuth();
 
   const getAllAnimals = useCallback(async () => {
@@ -31,6 +42,40 @@ function Likes() {
     getAllAnimals();
   };
 
+  const displayFiltersModal = () => {
+    setDisplayFilters(!displayFilters);
+  };
+
+  const handleFiltersSubmit = async (filters?: TFilter) => {
+    setDisplayFilters(false);
+    if (!filters) {
+      getAllAnimals();
+      return;
+    }
+    if (filters.city !== null) {
+      const { data: shelters } = await supabase.from("shelters").select("*").ilike("city", `%${filters.city}%`);
+      const shelterIds = shelters?.map((shelter) => shelter.id);
+      const { data } = await supabase.rpc("getanimalswithlikestatuswithfilters", {
+        keeper_id: profile?.id,
+        min_age: filters.minAge,
+        max_age: filters.maxAge,
+        species: filters.species === "All" ? null : filters.species,
+        shelters: shelterIds,
+        name: filters.name === "" ? null : filters.name,
+      });
+      setAnimals(data);
+    } else {
+      const { data } = await supabase.rpc("getanimalswithlikestatuswithfilters", {
+        keeper_id: profile?.id,
+        min_age: filters.minAge,
+        max_age: filters.maxAge,
+        species: filters.species === "All" ? null : filters.species,
+        name: filters.name === "" ? null : filters.name,
+      });
+      setAnimals(data);
+    }
+  };
+
   useEffect(() => {
     getAllAnimals();
   }, [getAllAnimals]);
@@ -42,7 +87,7 @@ function Likes() {
         <div className="flex flex-col">
           <h1 className="font-montserrat-bold text-3xl">Likes</h1>
         </div>
-        <Button />
+        <Button handleClick={displayFiltersModal} />
       </div>
       <div className="w-[300px] flex flex-col gap-6">
         <p className="text-center font-montserrat-regular text-input-grey">
@@ -67,7 +112,12 @@ function Likes() {
             ))}
         </div>
       </div>
-
+      <FiltersModal
+        initialFilters={initialFilters}
+        display={displayFilters}
+        handleCloseFilterModal={displayFiltersModal}
+        handleSubmit={handleFiltersSubmit}
+      />
       <Navbar links={links} />
     </div>
   );

@@ -8,7 +8,7 @@ describe("test FiltersModal", () => {
   test("renders FiltersModal", () => {
     render(
       <FiltersModal
-        initialFilters={{ minAge: 0, maxAge: 30, species: "All", city: null }}
+        initialFilters={{ minAge: 0, maxAge: 30, species: "All", city: "" }}
         display
         handleCloseFilterModal={vi.fn()}
         handleSubmit={vi.fn()}
@@ -19,7 +19,7 @@ describe("test FiltersModal", () => {
   test("renders header", () => {
     render(
       <FiltersModal
-        initialFilters={{ minAge: 0, maxAge: 30, species: "All", city: null }}
+        initialFilters={{ minAge: 0, maxAge: 30, species: "All", city: "" }}
         display
         handleCloseFilterModal={vi.fn()}
         handleSubmit={vi.fn()}
@@ -32,7 +32,7 @@ describe("test FiltersModal", () => {
   test("renders elements", () => {
     render(
       <FiltersModal
-        initialFilters={{ minAge: 0, maxAge: 30, species: "All", city: null }}
+        initialFilters={{ minAge: 0, maxAge: 30, species: "All", city: "" }}
         display
         handleCloseFilterModal={vi.fn()}
         handleSubmit={vi.fn()}

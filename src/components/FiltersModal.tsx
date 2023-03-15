@@ -44,7 +44,12 @@ function FiltersModal({ initialFilters, display, handleCloseFilterModal, handleS
         </div>
         <div className="flex flex-col gap-7">
           <Selector title="Interested in" value={formik.values.species as string} elements={speciesOptions} setFieldValue={formik.setFieldValue} />
-          <InputField name="city" title="Location" value={formik.values.city ? formik.values.city : ""} handleChange={formik.handleChange} />
+          {initialFilters.city === "" && (
+            <InputField name="city" title="Location" value={formik.values.city ? formik.values.city : ""} handleChange={formik.handleChange} />
+          )}
+          {initialFilters.name === "" && (
+            <InputField name="name" title="Name" value={formik.values.name ? formik.values.name : ""} handleChange={formik.handleChange} />
+          )}
           <SliderInput
             title="Age"
             min={initialFilters.minAge}

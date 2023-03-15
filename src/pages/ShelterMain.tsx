@@ -10,11 +10,22 @@ import ImageCard from "../components/ImageCard";
 import { TAnimal } from "../types/animalShelter";
 import Loader from "../components/Loader";
 import { shelterLinks as links } from "../utils/navbarLinks";
+import FiltersModal from "../components/FiltersModal";
+import { TFilter } from "../types/keeper";
+
+const initialFilters: TFilter = {
+  minAge: 0,
+  maxAge: 30,
+  species: "All",
+  city: null,
+  name: "",
+};
 
 function ShelterMain() {
   const [animals, setAnimals] = useState<TAnimal[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [displayFilters, setDisplayFilters] = useState(false);
   const { auth, profile, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -45,6 +56,42 @@ function ShelterMain() {
     getAnimals();
   };
 
+  const displayFiltersModal = () => {
+    setDisplayFilters(!displayFilters);
+  };
+
+  const handleFiltersSubmit = async (filters?: TFilter) => {
+    setDisplayFilters(false);
+    if (!filters) {
+      getAnimals();
+      return;
+    }
+    if (filters.species === "All") {
+      const { data } = await supabase
+        .from("animals")
+        .select("*")
+        .match({
+          shelter_id: profile?.id,
+        })
+        .gte("age", filters.minAge)
+        .lte("age", filters.maxAge)
+        .ilike("name", `%${filters.name}%`);
+      setAnimals(data as TAnimal[]);
+    } else {
+      const { data } = await supabase
+        .from("animals")
+        .select("*")
+        .match({
+          shelter_id: profile?.id,
+          species: filters.species,
+        })
+        .gte("age", filters.minAge)
+        .lte("age", filters.maxAge)
+        .ilike("name", `%${filters.name}%`);
+      setAnimals(data as TAnimal[]);
+    }
+  };
+
   useEffect(() => {
     getAnimals();
   }, [getAnimals]);
@@ -59,7 +106,7 @@ function ShelterMain() {
             {profile?.city}, {profile?.address}
           </p>
         </div>
-        <Button />
+        <Button handleClick={displayFiltersModal} />
       </div>
       <div className="w-[300px] flex flex-col gap-6">
         <div>
@@ -82,6 +129,12 @@ function ShelterMain() {
           ))}
         </div>
       </div>
+      <FiltersModal
+        initialFilters={initialFilters}
+        display={displayFilters}
+        handleCloseFilterModal={displayFiltersModal}
+        handleSubmit={handleFiltersSubmit}
+      />
       <Navbar links={links} />
     </div>
   );
