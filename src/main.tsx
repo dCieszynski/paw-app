@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
 import App from "./App";
@@ -8,10 +8,10 @@ import { AuthProvider } from "./context/AuthProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <HashRouter>
+    <BrowserRouter basename="/paw-app">
       <AuthProvider>
         <App />
       </AuthProvider>
-    </HashRouter>
+    </BrowserRouter>
   </React.StrictMode>
 );
