@@ -13,7 +13,7 @@ function OTPSignin() {
     await supabase.auth.signInWithOtp({
       email: emailInput,
       options: {
-        emailRedirectTo: "http://localhost:5173/create_profile",
+        emailRedirectTo: "https://dcieszynski.github.io/paw-app/create_profile",
       },
     });
     navigate("/");
