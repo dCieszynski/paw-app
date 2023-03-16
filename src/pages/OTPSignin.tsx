@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import InputField from "../components/InputField";
@@ -6,18 +7,24 @@ import LoginSubmitButton from "../components/LoginSubmitButton";
 import supabase from "../supabase";
 
 function OTPSignin() {
-  const [emailInput, setEmailInput] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (email: string) => {
     await supabase.auth.signInWithOtp({
-      email: emailInput,
+      email,
       options: {
-        emailRedirectTo: "http://localhost:5173/create_profile",
+        emailRedirectTo: "https://main--dcieszynskipaw.netlify.app/create_profile",
       },
     });
     navigate("/");
   };
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+    },
+    onSubmit: (values) => handleSubmit(values.email),
+  });
 
   return (
     <div className="flex flex-col items-center gap-16">
@@ -31,8 +38,8 @@ function OTPSignin() {
           login via OTP link.
         </div>
       </div>
-      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-        <InputField name="email" title="Email" value={emailInput} handleChange={(e) => setEmailInput(e.currentTarget.value)} />
+      <form className="flex flex-col gap-6" onSubmit={formik.handleSubmit}>
+        <InputField name="email" title="Email" value={formik.values.email} handleChange={formik.handleChange} />
         <LoginSubmitButton title="Send OTP link" submit />
       </form>
     </div>

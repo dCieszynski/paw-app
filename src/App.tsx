@@ -19,21 +19,21 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="/" element={<Login />} />
+        <Route path="" element={<Login />} />
         <Route path="/sign_via_otp" element={<OTPSignin />} />
         <Route path="/create_profile" element={<PickRole />} />
         <Route path="/create_profile/:role" element={<CreateProfile />} />
         <Route element={<ProtectedRoute allowedRole="animal_shelter" />}>
-          <Route path="animal_shelter" element={<AppLayout links={shelterLinks} />}>
+          <Route path="/animal_shelter" element={<AppLayout links={shelterLinks} />}>
             <Route path="" element={<ShelterMain />} />
-            <Route path="/animal_shelter/add_pet" element={<AddPet />} />
-            <Route path="/animal_shelter/messages" element={<Messages />} />
+            <Route path="add_pet" element={<AddPet />} />
+            <Route path="messages" element={<Messages />} />
           </Route>
         </Route>
         <Route element={<ProtectedRoute allowedRole="keeper" />}>
-          <Route path="keeper" element={<AppLayout links={keeperLinks} />}>
+          <Route path="/keeper" element={<AppLayout links={keeperLinks} />}>
             <Route path="" element={<Discover />} />
-            <Route path="/keeper/likes" element={<Likes />} />
+            <Route path="likes" element={<Likes />} />
           </Route>
         </Route>
       </Route>
