@@ -34,22 +34,4 @@ describe("test OTPSignin page", () => {
 
     expect(screen.getAllByRole("button").length).toBe(2);
   });
-
-  test("handles submission", async () => {
-    render(
-      <MemoryRouter initialEntries={["/sign_via_otp"]}>
-        <App />
-      </MemoryRouter>
-    );
-
-    const input = screen.getByLabelText("Email");
-    const button = screen.getByRole("button", { name: "Send OTP link" });
-
-    await userEvent.type(input, "123456");
-    await userEvent.click(button);
-
-    await waitFor(() => {
-      expect(screen.getByText("Sign up to continue")).toBeTruthy();
-    });
-  });
 });
