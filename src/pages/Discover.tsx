@@ -9,10 +9,8 @@ import Button from "../components/Button";
 import ImageCard from "../components/ImageCard";
 import CircleButton from "../components/CircleButton";
 import PawButton from "../components/PawButton";
-import Navbar from "../components/Navbar";
 import { TAnimal } from "../types/animalShelter";
 import { getDate } from "../utils/helpers";
-import { keeperLinks as links } from "../utils/navbarLinks";
 import FiltersModal from "../components/FiltersModal";
 import { TFilter } from "../types/keeper";
 
@@ -127,12 +125,12 @@ function Discover() {
   }, [isReset, getAllAnimals]);
 
   return (
-    <div className="flex flex-col items-center gap-5 h-full">
+    <>
       <div className="flex justify-between items-center w-full">
         <BackButton handleClick={signout} />
         <div className="flex flex-col items-center">
           <h1 className="font-montserrat-bold text-2xl">Discover</h1>
-          <p className="font-montserrat-regular text-xs text-input-grey">Here you can look for pets that you would like to adopt</p>
+          <p className="font-montserrat-regular text-xs text-input-grey">Here you can look for pets to adopt</p>
         </div>
         <Button handleClick={displayFiltersModal} />
       </div>
@@ -161,8 +159,7 @@ function Discover() {
         handleCloseFilterModal={displayFiltersModal}
         handleSubmit={handleFiltersSubmit}
       />
-      <Navbar links={links} />
-    </div>
+    </>
   );
 }
 

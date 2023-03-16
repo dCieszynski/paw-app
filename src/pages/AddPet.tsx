@@ -5,8 +5,6 @@ import * as Yup from "yup";
 
 import BackButton from "../components/BackButton";
 import InputField from "../components/InputField";
-import Navbar from "../components/Navbar";
-import { shelterLinks as links } from "../utils/navbarLinks";
 import LoginSubmitButton from "../components/LoginSubmitButton";
 import AddImage from "../components/AddImage";
 import ImagePreview from "../components/ImagePreview";
@@ -128,7 +126,7 @@ function AddPet() {
   );
 
   return (
-    <div className="flex flex-col items-center gap-8">
+    <>
       <div className="flex justify-between items-center w-full">
         <BackButton />
         <div className="text-right">
@@ -143,7 +141,12 @@ function AddPet() {
               {formik.touched[input.name as keyof TAddPetFormValues] && formik.errors[input.name as keyof TAddPetFormValues] && (
                 <span className="text-red">{formik.errors[input.name as keyof TAddPetFormValues]}</span>
               )}
-              <InputField name={input.name} title={input.title} handleChange={formik.handleChange} />
+              <InputField
+                name={input.name}
+                title={input.title}
+                value={formik.values[input.name as keyof TAddPetFormValues] as string}
+                handleChange={formik.handleChange}
+              />
             </div>
           ))}
           <InputField
@@ -164,9 +167,7 @@ function AddPet() {
           <LoginSubmitButton title="Add pet" submit />
         </form>
       </div>
-
-      <Navbar links={links} />
-    </div>
+    </>
   );
 }
 

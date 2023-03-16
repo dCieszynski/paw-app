@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
-import Navbar from "../components/Navbar";
 import supabase from "../supabase";
 import useAuth from "../utils/useAuth";
 import ImageCard from "../components/ImageCard";
 import { TAnimal } from "../types/animalShelter";
 import Loader from "../components/Loader";
-import { shelterLinks as links } from "../utils/navbarLinks";
 import FiltersModal from "../components/FiltersModal";
 import { TFilter } from "../types/keeper";
 
@@ -97,7 +95,7 @@ function ShelterMain() {
   }, [getAnimals]);
 
   return (
-    <div className="flex flex-col items-center gap-5 h-full">
+    <>
       <div className="flex justify-between items-center w-full">
         <BackButton handleClick={signout} />
         <div className="flex flex-col items-center">
@@ -135,8 +133,7 @@ function ShelterMain() {
         handleCloseFilterModal={displayFiltersModal}
         handleSubmit={handleFiltersSubmit}
       />
-      <Navbar links={links} />
-    </div>
+    </>
   );
 }
 

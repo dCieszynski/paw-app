@@ -3,14 +3,13 @@ import React from "react";
 type Props = {
   name: string;
   title: string;
-  value?: string;
+  value: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   type?: "text" | "select";
   options?: string[];
 };
 
 const defaultProps = {
-  value: "",
   type: "text",
   options: [],
 };
@@ -33,21 +32,10 @@ function InputField({ name, title, type, value, options, handleChange }: Props) 
         </>
       ) : (
         <div>
-          {value !== undefined ? (
-            <>
-              <label htmlFor={name} className="absolute top-[-12px] left-5 text-input-grey bg-white pl-2 text-xs">
-                {title}
-              </label>
-              <input id={name} type="text" value={value} name={name} className="px-4 w-full text-sm ring-0 outline-none" onChange={handleChange} />
-            </>
-          ) : (
-            <>
-              <label htmlFor={name} className="absolute top-[-12px] left-5 text-input-grey bg-white pl-2 text-xs">
-                {title}
-              </label>
-              <input id={name} type="text" name={name} className="px-4 w-full text-sm ring-0 outline-none" onChange={handleChange} />
-            </>
-          )}
+          <label htmlFor={name} className="absolute top-[-12px] left-5 text-input-grey bg-white pl-2 text-xs">
+            {title}
+          </label>
+          <input id={name} type="text" value={value} name={name} className="px-4 w-full text-sm ring-0 outline-none" onChange={handleChange} />
         </div>
       )}
     </div>

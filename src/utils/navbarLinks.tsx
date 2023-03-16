@@ -5,19 +5,19 @@ import { TbLayoutCards } from "react-icons/tb";
 
 export const keeperLinks = [
   {
-    to: "/discover",
+    to: "/keeper",
     Icon: TbLayoutCards,
   },
   {
-    to: "/likes",
+    to: "likes",
     Icon: AiFillHeart,
   },
   {
-    to: "/messages",
+    to: "messages",
     Icon: BsFillChatTextFill,
   },
   {
-    to: "/profile",
+    to: "profile",
     Icon: BsFillPersonFill,
   },
 ];
@@ -28,15 +28,15 @@ export const shelterLinks = [
     Icon: MdDomain,
   },
   {
-    to: "/add_pet",
+    to: "add_pet",
     Icon: MdPets,
   },
   {
-    to: "/messages",
+    to: "messages",
     Icon: BsFillChatTextFill,
   },
   {
-    to: "/profile",
+    to: "profile",
     Icon: BsFillPersonFill,
   },
 ];
