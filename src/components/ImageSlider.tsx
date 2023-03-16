@@ -40,12 +40,12 @@ function ImageSlider({ images }: Props) {
         <div key={image}>
           {!loadedImages.includes(index) && <Loader />}
           <img
-            className={`${loadedImages.includes(index) ? "opacity-100" : "opacity-0"} absolute w-full h-full transition-opacity ${
+            className={`${loadedImages.includes(index) ? "opacity-100" : "opacity-0"} absolute w-full h-full object-cover transition-opacity ${
               index === currentImage ? "opacity-100" : "opacity-0"
             } duration-500 ease-in-out`}
             src={image}
             onLoad={() => handleImageLoad(index)}
-            alt="Dog"
+            alt="Pet"
           />
         </div>
       ))}

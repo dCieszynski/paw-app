@@ -35,7 +35,10 @@ function FiltersModal({ initialFilters, display, handleCloseFilterModal, handleS
   return (
     <div className={`${display ? "block" : "hidden"} fixed flex items-end justify-center w-full h-full top-0 z-20`}>
       <div className="bg-black opacity-90 w-full h-full fixed -z-10" />
-      <form className="bg-white w-[324px] rounded-t-xl p-6 flex flex-col items-center gap-7" onSubmit={formik.handleSubmit}>
+      <form
+        className="bg-white w-[324px] rounded-t-xl p-6 flex flex-col items-center gap-7 duration-75 animate-bounce-appear"
+        onSubmit={formik.handleSubmit}
+      >
         <div className="flex justify-end items-baseline gap-14 w-full">
           <h1 className="font-montserrat-bold text-2xl">Filters</h1>
           <button type="button" className="font-montserrat-bold text-base text-paw-green-2" onClick={handleClear}>
