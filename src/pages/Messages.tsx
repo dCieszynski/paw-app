@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import BackButton from "../components/BackButton";
 import ChatCard from "../components/ChatCard";
 import supabase from "../supabase";
-import { shelterLinks as links } from "../utils/navbarLinks";
-import Navbar from "../components/Navbar";
 import { TKeeperLike } from "../types/animalShelter";
 import useAuth from "../utils/useAuth";
 
@@ -26,7 +24,7 @@ function Messages() {
   }, [getChats]);
 
   return (
-    <div className="flex flex-col items-center gap-5 h-full">
+    <>
       <div className="flex justify-between items-center w-full">
         <BackButton />
         <div className="flex flex-col text-right">
@@ -39,10 +37,9 @@ function Messages() {
         {/* eslint-disable react/jsx-no-useless-fragment */}
         {chats.length > 0 &&
           chats.map((chat) => (
-            <>
+            <div key={chat.id}>
               {chat.status !== "Rejected" && (
                 <ChatCard
-                  key={chat.id}
                   title={`${chat.name} - ${chat.firstName} ${chat.lastName}`}
                   image={chat.images[0]}
                   status={chat.status}
@@ -50,12 +47,11 @@ function Messages() {
                   handleReject={() => handleApprove(chat.id, "Rejected")}
                 />
               )}
-            </>
+            </div>
           ))}
       </div>
       {/* eslint-enable react/jsx-no-useless-fragment */}
-      <Navbar links={links} />
-    </div>
+    </>
   );
 }
 

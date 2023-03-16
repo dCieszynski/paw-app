@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { keeperLinks as links } from "../utils/navbarLinks";
-import Navbar from "../components/Navbar";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
 import { TAnimal } from "../types/animalShelter";
@@ -81,7 +79,7 @@ function Likes() {
   }, [getAllAnimals]);
 
   return (
-    <div className="flex flex-col items-center gap-5 h-full">
+    <>
       <div className="flex justify-between items-center w-full">
         <BackButton />
         <div className="flex flex-col">
@@ -118,8 +116,7 @@ function Likes() {
         handleCloseFilterModal={displayFiltersModal}
         handleSubmit={handleFiltersSubmit}
       />
-      <Navbar links={links} />
-    </div>
+    </>
   );
 }
 

@@ -14,8 +14,10 @@ function Navbar({ links }: Props) {
       <ul className="flex justify-around w-[300px]">
         {links.map(({ to, Icon }) => (
           <li key={to} className="relative">
-            {location.pathname === to && <div className="absolute w-10 h-1 top-[-16px] left-1/2 translate-x-[-50%] bg-paw-green-2" />}
-            <Link to={to} className="text-2xl">
+            {(location.pathname.split("/").includes(to) || location.pathname === to) && (
+              <div className="absolute w-10 h-1 top-[-16px] left-1/2 translate-x-[-50%] bg-paw-green-2" />
+            )}
+            <Link to={to} className={`${location.pathname.split("/").includes(to) || location.pathname === to ? "text-paw-green-2" : ""} text-2xl`}>
               <Icon />
             </Link>
           </li>

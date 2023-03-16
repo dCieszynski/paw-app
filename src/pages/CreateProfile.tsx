@@ -115,7 +115,12 @@ function CreateProfile() {
                 {formik.touched[input.name as keyof TProfileFormValues] && formik.errors[input.name as keyof TProfileFormValues] && (
                   <span className="text-red">{formik.errors[input.name as keyof TProfileFormValues]}</span>
                 )}
-                <InputField name={input.name} title={input.title} handleChange={formik.handleChange} />
+                <InputField
+                  name={input.name}
+                  title={input.title}
+                  value={formik.values[input.name as keyof TProfileFormValues] as string}
+                  handleChange={formik.handleChange}
+                />
               </div>
             ))}
           </div>

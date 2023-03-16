@@ -24,7 +24,7 @@ function PickRole() {
     if (profile.role === "animal_shelter") {
       navigate("/animal_shelter");
     } else if (profile.role === "keeper") {
-      navigate("/discover");
+      navigate("/keeper");
     }
   }, [auth, profile, navigate]);
 
