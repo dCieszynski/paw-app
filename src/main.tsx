@@ -8,7 +8,7 @@ import { AuthProvider } from "./context/AuthProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter basename="/paw-app">
+    <BrowserRouter>
       <AuthProvider>
         <App />
       </AuthProvider>
