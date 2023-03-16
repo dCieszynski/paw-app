@@ -23,7 +23,9 @@ function Selector({ title, value, elements, setFieldValue }: Props) {
         <div
           className={`${
             value === elements[0] ? "bg-paw-green-2 text-white font-montserrat-bold" : ""
-          } rounded-l-2xl border-r-[1px] border-input-grey flex justify-center items-center w-[98px]`}
+          } rounded-l-2xl border-r-[1px] border-input-grey flex justify-center items-center w-[98px] cursor-pointer  ${
+            value !== elements[0] ? "hover:bg-paw-green-1 hover:font-montserrat-bold" : ""
+          }`}
           onClick={handleClick}
         >
           {elements[0]}
@@ -31,7 +33,9 @@ function Selector({ title, value, elements, setFieldValue }: Props) {
         <div
           className={`${
             value === elements[1] ? "bg-paw-green-2 text-white font-montserrat-bold" : ""
-          } font-montserrat-regular border-r-[1px] border-input-grey flex justify-center items-center w-[98px]`}
+          } font-montserrat-regular border-r-[1px] border-input-grey flex justify-center items-center w-[98px] cursor-pointer  ${
+            value !== elements[1] ? "hover:bg-paw-green-1 hover:font-montserrat-bold" : ""
+          }`}
           onClick={handleClick}
         >
           {elements[1]}
@@ -39,7 +43,9 @@ function Selector({ title, value, elements, setFieldValue }: Props) {
         <div
           className={`${
             value === elements[2] ? "bg-paw-green-2 text-white font-montserrat-bold" : ""
-          } rounded-r-2xl  flex justify-center items-center w-[98px]`}
+          } rounded-r-2xl  flex justify-center items-center w-[98px] cursor-pointer ${
+            value !== elements[2] ? "hover:bg-paw-green-1 hover:font-montserrat-bold" : ""
+          }`}
           onClick={handleClick}
         >
           {elements[2]}

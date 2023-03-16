@@ -8,7 +8,11 @@ type Props = {
 
 function LoginButton({ Icon, handleClick }: Props) {
   return (
-    <button type="button" className="border-[1px] border-br-grey rounded-2xl p-4 text-paw-green-2 text-[32px]" onClick={handleClick}>
+    <button
+      type="button"
+      className="border-[1px] border-br-grey rounded-2xl p-4 text-paw-green-2 text-[32px] shadow-md transition-all ease-in hover:bg-paw-green-2 hover:text-white"
+      onClick={handleClick}
+    >
       <Icon />
     </button>
   );

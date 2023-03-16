@@ -29,7 +29,7 @@ function ImageCard({ size, images, title, description, handleDelete, id }: Props
           </div>
           <button
             type="button"
-            className="bg-black opacity-70 rounded hidden group-hover:block absolute top-6 right-[-12px] translate-x-[-50%] translate-y-[-50%] text-red text-4xl"
+            className="bg-black opacity-70 rounded hidden group-hover:block absolute top-6 right-[-12px] translate-x-[-50%] translate-y-[-50%] text-red text-4xl transition-all ease-in hover:opacity-100"
             onClick={() => handleDelete(id, `${title.split(", ").join("_")}`)}
           >
             <MdDeleteForever />

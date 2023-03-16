@@ -24,14 +24,22 @@ function ChatCard({ image, title, status, handleApprove, handleReject }: Props) 
         />
       </div>
       <div className="h-full w-[130px] flex items-center font-montserrat-bold">{title}</div>
-      <div className="flex text-[2rem] gap-3">
+      <div className="flex text-[2rem] gap-2 w-[78px]">
         {status === "Approved" && <IoMdChatbubbles className="text-paw-green-3" />}
         {status === "Pending" && (
           <>
-            <button type="button" onClick={handleApprove}>
+            <button
+              type="button"
+              onClick={handleApprove}
+              className="w-9 text-center border-2 border-transparent transition-all ease-in hover:border-2 hover:rounded-xl hover:border-paw-green-3"
+            >
               <MdCheck className="text-paw-green-2" />
             </button>
-            <button type="button" onClick={handleReject}>
+            <button
+              type="button"
+              onClick={handleReject}
+              className="w-9 text-center border-2 border-transparent transition-all ease-in hover:border-2 hover:rounded-xl hover:border-red"
+            >
               <MdClose className="text-red" />
             </button>
           </>
