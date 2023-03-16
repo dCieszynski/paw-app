@@ -6,7 +6,7 @@
   "homepage": "https://dcieszynski.github.io/paw-app/",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --base=./",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint src",
     "test": "vitest"

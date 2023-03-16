@@ -19,7 +19,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="/" element={<Login />} />
+        <Route path="" element={<Login />} />
         <Route path="/sign_via_otp" element={<OTPSignin />} />
         <Route path="/create_profile" element={<PickRole />} />
         <Route path="/create_profile/:role" element={<CreateProfile />} />
