@@ -11,6 +11,7 @@ import OTPSignin from "./pages/OTPSignin";
 import PickRole from "./pages/PickRole";
 import ShelterMain from "./pages/ShelterMain";
 import Likes from "./pages/Likes";
+import Messages from "./pages/Messages";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route element={<ProtectedRoute allowedRole="animal_shelter" />}>
           <Route path="/animal_shelter" element={<ShelterMain />} />
           <Route path="/add_pet" element={<AddPet />} />
+          <Route path="/messages" element={<Messages />} />
         </Route>
         <Route element={<ProtectedRoute allowedRole="keeper" />}>
           <Route path="/discover" element={<Discover />} />

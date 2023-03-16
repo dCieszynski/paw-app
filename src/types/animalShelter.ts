@@ -21,3 +21,12 @@ export type TAnimal = {
   like_id?: string;
   status?: string;
 };
+
+export type TKeeperLike = {
+  id: number;
+  name: string;
+  images: string[];
+  firstName: string;
+  lastName: string;
+  status: string;
+};
