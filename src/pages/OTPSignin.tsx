@@ -13,7 +13,7 @@ function OTPSignin() {
     await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: "https://dcieszynskipaw.netlify.app/create_profile",
+        emailRedirectTo: "https://main--dcieszynskipaw.netlify.app/create_profile",
       },
     });
     navigate("/");
