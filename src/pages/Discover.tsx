@@ -60,6 +60,11 @@ function Discover() {
     if (currentIndex === animalsCount - 1) {
       setErrorMessage("No more animals to show");
       setAnimalsCount(0);
+      await supabase
+        .from("notinterested")
+        .insert([
+          { animal_id: animals[currentIndex].id, keeper_id: profile?.id, expires_at: getDate(new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)) },
+        ]);
     } else {
       setCurrentIndex(currentIndex + 1);
       await supabase
@@ -74,6 +79,7 @@ function Discover() {
     if (currentIndex === animalsCount - 1) {
       setErrorMessage("No more animals to show");
       setAnimalsCount(0);
+      await supabase.from("likes").insert([{ animal_id: animals[currentIndex].id, keeper_id: profile?.id, status: "Pending" }]);
     } else {
       setCurrentIndex(currentIndex + 1);
       await supabase.from("likes").insert([{ animal_id: animals[currentIndex].id, keeper_id: profile?.id, status: "Pending" }]);
@@ -90,7 +96,7 @@ function Discover() {
       getAllAnimals();
       return;
     }
-    if (filters.city !== null) {
+    if (filters.city !== "" && filters.city !== null) {
       const { data: shelters } = await supabase.from("shelters").select("*").textSearch("city", filters.city);
       const shelterIds = shelters?.map((shelter) => shelter.id);
       const { data } = await supabase.rpc("getanimalswithoutrelationwithfilters", {
