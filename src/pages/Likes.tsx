@@ -87,11 +87,11 @@ function Likes() {
         </div>
         <Button handleClick={displayFiltersModal} />
       </div>
-      <div className="w-[300px] flex flex-col gap-6">
+      <div className="w-[300px] md:w-[600px] lg:w-[900px] 2xl:w-[1200px] flex flex-col gap-6">
         <p className="text-center font-montserrat-regular text-input-grey">
           This is a list of animals that you are interested in and their current status.
         </p>
-        <div className="flex flex-wrap gap-4 pb-10">
+        <div className="flex flex-wrap justify-center gap-4 pb-10">
           {errorMessage && <p className="font-montserrat-regular text-xl text-input-grey">{errorMessage}</p>}
           {animals.length > 0 &&
             animals.map((animal) => (

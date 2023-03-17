@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import Loader from "./Loader";
 
@@ -7,8 +7,8 @@ type Props = {
 };
 
 function ImageSlider({ images }: Props) {
-  const [currentImage, setCurrentImage] = React.useState(0);
-  const [loadedImages, setLoadedImages] = React.useState<number[]>([]);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<number[]>([]);
 
   const goToNextImage = () => {
     if (currentImage === images.length - 1) {
@@ -27,20 +27,25 @@ function ImageSlider({ images }: Props) {
   };
 
   const handleImageLoad = (index: number) => {
-    setLoadedImages((prevLoadedImages) => [...prevLoadedImages, index]);
+    setLoadedImages((prevLoadedImages) => {
+      return [...prevLoadedImages, index];
+    });
   };
 
   useEffect(() => {
-    setLoadedImages([]);
+    return () => {
+      setLoadedImages([]);
+      setCurrentImage(0);
+    };
   }, [images]);
 
   return (
     <div className="rounded w-full h-full group">
+      {loadedImages.length !== images.length && <Loader />}
       {images.map((image, index) => (
         <div key={image}>
-          {!loadedImages.includes(index) && <Loader />}
           <img
-            className={`${loadedImages.includes(index) ? "opacity-100" : "opacity-0"} absolute w-full h-full object-cover transition-opacity ${
+            className={`opacity-0 absolute top-0 w-full h-full object-cover transition-opacity ${
               index === currentImage ? "opacity-100" : "opacity-0"
             } duration-500 ease-in-out`}
             src={image}

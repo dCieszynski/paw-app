@@ -32,25 +32,22 @@ function Messages() {
           <p className="font-montserrat-regular text-input-grey ">Here you can approve keepers&apos; likes</p>
         </div>
       </div>
-      <div className="flex flex-col gap-5 justify-center items-center w-[300px] pb-12">
-        {chats.length === 0 && <p className="font-montserrat-regular text-xl text-input-grey">No chats yet</p>}
-        {/* eslint-disable react/jsx-no-useless-fragment */}
-        {chats.length > 0 &&
-          chats.map((chat) => (
-            <div key={chat.id}>
-              {chat.status !== "Rejected" && (
-                <ChatCard
-                  title={`${chat.name} - ${chat.firstName} ${chat.lastName}`}
-                  image={chat.images[0]}
-                  status={chat.status}
-                  handleApprove={() => handleApprove(chat.id, "Approved")}
-                  handleReject={() => handleApprove(chat.id, "Rejected")}
-                />
-              )}
-            </div>
-          ))}
+      <div className="flex flex-col gap-5 justify-center items-center w-[300px] md:w-[600px] lg:w-[900px] 2xl:w-[1200px] pb-12">
+        {chats.length === 0 && <p className="font-montserrat-regular text-xl text-input-grey">No likes yet</p>}
+        <div className="flex flex-wrap justify-center gap-4">
+          {chats.length > 0 &&
+            chats.map((chat) => (
+              <ChatCard
+                key={chat.id}
+                title={`${chat.name} - ${chat.firstName} ${chat.lastName}`}
+                image={chat.images[0]}
+                status={chat.status}
+                handleApprove={() => handleApprove(chat.id, "Approved")}
+                handleReject={() => handleApprove(chat.id, "Rejected")}
+              />
+            ))}
+        </div>
       </div>
-      {/* eslint-enable react/jsx-no-useless-fragment */}
     </>
   );
 }
