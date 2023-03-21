@@ -28,6 +28,7 @@ function Discover() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [errorMessage, setErrorMessage] = useState("No more animals found");
   const [displayFilters, setDisplayFilters] = useState(false);
+  const [isInfo, setIsInfo] = useState(false);
   const { profile, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -120,6 +121,10 @@ function Discover() {
     }
   };
 
+  const handleInfo = () => {
+    setIsInfo(!isInfo);
+  };
+
   useEffect(() => {
     resetNotInterested();
   }, [resetNotInterested]);
@@ -140,7 +145,7 @@ function Discover() {
         </div>
         <Button handleClick={displayFiltersModal} />
       </div>
-      <div className="flex flex-col gap-5 justify-center">
+      <div className="flex flex-col gap-5 justify-center w-[300px]">
         {animalsCount === 0 && <p className="font-montserrat-regular text-xl text-input-grey">{errorMessage}</p>}
         {animalsCount > 0 && (
           <>
@@ -150,8 +155,12 @@ function Discover() {
               title={`${animals[currentIndex].name}, ${animals[currentIndex].age}`}
               description={animals[currentIndex].breed}
               images={animals[currentIndex].images}
+              handleInfo={handleInfo}
             />
-            <div className="flex gap-10 justify-center items-center w-[300px] pb-12">
+            <div className={`${isInfo ? "block" : "hidden"} font-montserrat-regular text-input-grey text-justify`}>
+              {animals[currentIndex].description}
+            </div>
+            <div className="flex gap-10 justify-center items-center pb-12">
               <CircleButton Icon={IoClose} color="text-paw-orange-0" textSize="text-2xl" handleClick={handleNotInterested} />
               <PawButton handleClick={handleLike} />
               <CircleButton Icon={IoStar} color="text-paw-purple-0" textSize="text-2xl" handleClick={() => {}} />

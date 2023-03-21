@@ -1,5 +1,5 @@
 import React from "react";
-import { MdDeleteForever } from "react-icons/md";
+import { MdDeleteForever, MdInfo } from "react-icons/md";
 
 import ImageSlider from "./ImageSlider";
 
@@ -10,14 +10,16 @@ type Props = {
   description?: string;
   id: number;
   handleDelete?: (id?: number | string, search?: string) => void;
+  handleInfo?: () => void;
 };
 
 const defaultProps = {
   description: "",
   handleDelete: undefined,
+  handleInfo: undefined,
 };
 
-function ImageCard({ size, images, title, description, handleDelete, id }: Props) {
+function ImageCard({ size, images, title, description, handleDelete, id, handleInfo }: Props) {
   return (
     <div>
       {size === "small" && handleDelete ? (
@@ -39,9 +41,14 @@ function ImageCard({ size, images, title, description, handleDelete, id }: Props
         <div className="relative w-[300px] h-[400px]">
           <ImageSlider images={images} />
           <div className="bg-black bg-opacity-90 blur-[2px] w-[300px] rounded-lg h-20 absolute bottom-0" />
-          <div className="text-white absolute bottom-4 left-4">
-            <h2 className="font-montserrat-bold text-2xl">{title}</h2>
-            <p className="font-montserrat-regular text-sm">{description}</p>
+          <div className="w-full flex justify-between text-white absolute bottom-4 px-4">
+            <div>
+              <h2 className="font-montserrat-bold text-2xl">{title}</h2>
+              <p className="font-montserrat-regular text-sm">{description}</p>
+            </div>
+            <button type="button" className="text-paw-green-2 text-4xl transition-all ease-in hover:text-white" onClick={handleInfo}>
+              <MdInfo />
+            </button>
           </div>
         </div>
       )}
