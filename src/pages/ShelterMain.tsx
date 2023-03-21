@@ -123,6 +123,7 @@ function ShelterMain() {
               images={animal.images}
               title={`${animal.name}, ${animal.age}`}
               handleDelete={handleRemove}
+              link={`details/${animal.id}`}
             />
           ))}
         </div>

@@ -53,7 +53,7 @@ Authorization is based on the profile type which the user created. "Keeper" user
 
 ## ToDo list:
 
-- [ ] - Add animal description functionality
+- [x] - Add animal description functionality
 - [ ] - Add pagination functionality to lists
 - [ ] - Add edit animal functionality
 - [ ] - Add edit profile functionality

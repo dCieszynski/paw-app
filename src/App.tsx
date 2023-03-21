@@ -14,6 +14,7 @@ import Likes from "./pages/Likes";
 import Messages from "./pages/Messages";
 import AppLayout from "./components/AppLayout";
 import { keeperLinks, shelterLinks } from "./utils/navbarLinks";
+import Animal from "./pages/Animal";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
             <Route path="" element={<ShelterMain />} />
             <Route path="add_pet" element={<AddPet />} />
             <Route path="messages" element={<Messages />} />
+            <Route path="details/:id" element={<Animal />} />
+            <Route path="edit/:id" element={<AddPet />} />
           </Route>
         </Route>
         <Route element={<ProtectedRoute allowedRole="keeper" />}>
