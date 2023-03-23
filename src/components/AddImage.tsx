@@ -15,7 +15,7 @@ function AddImage({ handleChange }: Props) {
             type="file"
             name="image"
             id="image"
-            accept="image/jpg, image/png"
+            accept="image/jpg, image/jpeg, image/png"
             className="absolute cursor-pointer file:invisible top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] w-8 h-8"
             onChange={handleChange}
           />
