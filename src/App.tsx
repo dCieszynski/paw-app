@@ -31,12 +31,14 @@ function App() {
             <Route path="messages" element={<Messages />} />
             <Route path="details/:id" element={<Animal />} />
             <Route path="edit/:id" element={<AddPet />} />
+            <Route path="profile/:role" element={<CreateProfile />} />
           </Route>
         </Route>
         <Route element={<ProtectedRoute allowedRole="keeper" />}>
           <Route path="keeper" element={<AppLayout links={keeperLinks} />}>
             <Route path="" element={<Discover />} />
             <Route path="likes" element={<Likes />} />
+            <Route path="profile/:role" element={<CreateProfile />} />
           </Route>
         </Route>
       </Route>
