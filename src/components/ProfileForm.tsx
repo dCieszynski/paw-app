@@ -124,7 +124,7 @@ function ProfileForm() {
     initialValues,
     validationSchema: profileSchema,
     onSubmit: async (values) => {
-      if (role) {
+      if (profile === null) {
         await addProfile(values);
       } else if (profile) {
         await editProfile(values);
