@@ -17,7 +17,7 @@ export const keeperLinks = [
     Icon: BsFillChatTextFill,
   },
   {
-    to: "profile",
+    to: "profile/keeper",
     Icon: BsFillPersonFill,
   },
 ];
@@ -36,7 +36,7 @@ export const shelterLinks = [
     Icon: BsFillChatTextFill,
   },
   {
-    to: "profile",
+    to: "profile/animal_shelter",
     Icon: BsFillPersonFill,
   },
 ];
