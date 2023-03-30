@@ -1,3 +1,5 @@
+import { TUserProfile } from "./login";
+
 export type TAddPetFormValues = {
   name: string;
   age: string;
@@ -29,4 +31,12 @@ export type TKeeperLike = {
   firstName: string;
   lastName: string;
   status: string;
+  user_id: string;
+};
+
+export type TChat = {
+  id: number;
+  created_at: string;
+  users: TUserProfile[];
+  request: TKeeperLike;
 };

@@ -57,4 +57,4 @@ Authorization is based on the profile type which the user created. "Keeper" user
 - [ ] - Add pagination functionality to lists
 - [x] - Add edit animal functionality
 - [x] - Add edit profile functionality
-- [ ] - Add chat functionality
+- [x] - Add chat functionality
