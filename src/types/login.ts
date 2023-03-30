@@ -15,7 +15,7 @@ export type TUserProfile = {
   firstName?: string;
   lastName?: string;
   avatarImageSrc: string;
-  user_id: number;
+  user_id: string;
   name?: string;
   city?: string;
   address?: string;

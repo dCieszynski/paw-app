@@ -5,28 +5,37 @@ import { IoMdChatbubbles } from "react-icons/io";
 type Props = {
   image: string;
   title: string;
-  status: string;
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  handleApprove: (params: any) => void;
-  handleReject: (params: any) => void;
+  handleApprove?: (params: any) => void;
+  handleReject?: (params: any) => void;
+  handleChat?: (params: any) => void;
   /* eslint-enable @typescript-eslint/no-explicit-any */
 };
 
-function ChatCard({ image, title, status, handleApprove, handleReject }: Props) {
+const defaultProps = {
+  handleApprove: undefined,
+  handleReject: undefined,
+  handleChat: undefined,
+};
+
+function ChatCard({ image, title, handleApprove, handleReject, handleChat }: Props) {
   return (
     <div className="flex justify-between items-center w-[295px] h-16 border-2 border-paw-green-2 rounded-xl shadow-md px-2">
       <div className="h-12 w-12">
-        <img
-          className="w-full h-full rounded object-cover
-            "
-          src={image}
-          alt={title}
-        />
+        <img className="w-full h-full rounded object-cover" src={image} alt={title} />
       </div>
       <div className="h-full w-[130px] flex items-center font-montserrat-bold">{title}</div>
       <div className="flex text-[2rem] gap-2 w-[78px]">
-        {status === "Approved" && <IoMdChatbubbles className="text-paw-green-3" />}
-        {status === "Pending" && (
+        {handleChat !== undefined && (
+          <button
+            type="button"
+            onClick={handleChat}
+            className="w-full flex justify-center text-center border-2 border-transparent transition-all ease-in text-paw-blue-0 hover:border-2 hover:rounded-xl hover:border-paw-green-3"
+          >
+            <IoMdChatbubbles />
+          </button>
+        )}
+        {handleApprove !== undefined && handleReject !== undefined && (
           <>
             <button
               type="button"
@@ -48,5 +57,7 @@ function ChatCard({ image, title, status, handleApprove, handleReject }: Props) 
     </div>
   );
 }
+
+ChatCard.defaultProps = defaultProps;
 
 export default ChatCard;

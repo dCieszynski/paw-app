@@ -13,6 +13,7 @@ module.exports = {
       "br-grey": "#e8e6ea",
       "input-grey": "#5e5e5e",
       "input-grey-2": "#f3f3f3",
+      "paw-blue-0": "#4c4cff",
       inactive: "#adafbb",
       white: "#fff",
       red: "#e02525",
