@@ -37,10 +37,13 @@ Authorization is based on the profile type which the user created. "Keeper" user
 - Discover available for adoptions pets
   - Like the ones that interest you
   - Mark ​​the ones you are not interested in
+  - Display a description of an animal
   - Filter by species, age, location, and what type of pet you are interested in
 - Check the status of liked animals
   - Filter liked animals by species, age, location, and name
   - Unlike liked animal
+- Edit profile data
+- Chat with animal shelter's user of approved pet
 
 ### Profile type "Animal shelter" functionalities
 
@@ -50,6 +53,9 @@ Authorization is based on the profile type which the user created. "Keeper" user
 - Add new animals to the animal shelter
 - Display list of requests of liked animals sent by keepers
   - Change the like request status
+- Edit profile data
+- Edit animal data
+- Chat with approved keepers
 
 ## ToDo list:
 
