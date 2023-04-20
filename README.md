@@ -60,7 +60,6 @@ Authorization is based on the profile type which the user created. "Keeper" user
 ## ToDo list:
 
 - [x] - Add animal description functionality
-- [ ] - Add pagination functionality to lists
 - [x] - Add edit animal functionality
 - [x] - Add edit profile functionality
 - [x] - Add chat functionality
